@@ -23,8 +23,7 @@ sudo ufw allow 4445/tcp  # P2P
 ```
 ### Dosyaları çek
 ```
-sudo curl -L -o /usr/local/bin/supernode \
-  https://github.com/LumeraProtocol/supernode/releases/latest/download/supernode-linux-amd64
+curl -L https://github.com/LumeraProtocol/supernode/releases/latest/download/supernode-linux-amd64.tar.gz | tar -xz
 
 sudo chmod +x /usr/local/bin/supernode
 chmod +x sn-manager
