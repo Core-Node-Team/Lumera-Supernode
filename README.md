@@ -25,7 +25,10 @@ sudo ufw allow 4445/tcp  # P2P
 ```
 sudo curl -L -o /usr/local/bin/supernode \
   https://github.com/LumeraProtocol/supernode/releases/latest/download/supernode-linux-amd64
+
 sudo chmod +x /usr/local/bin/supernode
+chmod +x sn-manager
+sudo mv sn-manager /usr/local/bin/
 supernode version
 ```
 ### Supernode init
@@ -99,9 +102,28 @@ sudo systemctl enable --now supernode
 journalctl -u supernode -f
 ```
 
+```
+sudo tee /etc/systemd/system/sn-manager.service <<EOF
+[Unit]
+Description=Lumera SuperNode Manager
+After=network-online.target
 
+[Service]
+ExecStart=/usr/local/bin/sn-manager start
+Restart=on-failure
+RestartSec=10
+LimitNOFILE=65536
+WorkingDirectory=/root
+Environment="HOME=/root"
 
-
-
-
-
+[Install]
+WantedBy=multi-user.target 
+EOF
+```
+```
+sudo systemctl daemon-reload
+sudo systemctl enable --now sn-manager
+```
+```
+journalctl -fu sn-manager
+```
