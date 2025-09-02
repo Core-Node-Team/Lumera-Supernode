@@ -109,7 +109,7 @@ After=network-online.target
 
 [Service]
 ExecStart=/usr/local/bin/sn-manager start
-Restart=on-failure
+Restart=always
 RestartSec=10
 LimitNOFILE=65536
 WorkingDirectory=/root
